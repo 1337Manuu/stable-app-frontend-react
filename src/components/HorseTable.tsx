@@ -1,24 +1,12 @@
 import React, {useEffect, useState} from "react";
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { Horse } from "../models/Horse";
 
-
-interface Horse {
-    id: number,
-    name: String,
-    note: String,
-    tenant: Tenant
-}
-
-interface Tenant {
-    id: number,
-    name: String,
-    phone: String
-}
 
 const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'note', headerName: 'Note', width: 150 },
-    { field: 'tenant', headerName: 'Tenant', width: 150 },
+    { field: 'stall', headerName: 'Box', width: 150},
+    { field: 'tenant', headerName: 'Besitzer', width: 150 },
   ];
 
 const HorseTable: React.FC = () => {
@@ -33,7 +21,7 @@ const HorseTable: React.FC = () => {
             const mappedRows = data.map((horse) => ({
                 id: horse.id,
                 name: horse.name,
-                note: horse.note,
+                stall: horse.stall.id,
                 tenant: horse.tenant.name,
             }));
             setRows(mappedRows)
