@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { Horse } from "../models/Horse";
+import { Paper } from "@mui/material";
 
 
 const columns: GridColDef[] = [
@@ -30,9 +31,11 @@ const HorseTable: React.FC = () => {
       }, []);
 
       return (
+        <Paper elevation={3} style={{ padding: "16px", marginBottom: "24px", backgroundColor: "#f5f5dc" }}>
         <div style={{ height: 300, width: '100%' }}>
           <DataGrid rows={rows} columns={columns} />
         </div>
+        </Paper>
       );
     }
     
