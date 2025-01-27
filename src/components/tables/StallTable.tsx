@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
-import { Stall } from "../models/Stall";
+import { Stall } from "../../models/Stall";
 import { Paper } from "@mui/material";
 
 const columns: GridColDef[] = [

@@ -1,15 +1,16 @@
 import React from "react";
-import HorseTable from "./components/HorseTable";
-import TenantTable from "./components/TenantTable";
+import HorseTable from "./components/tables/HorseTable";
+import TenantTable from "./components/tables/TenantTable";
 import "./App.css";
-import StallTable from "./components/StallTable";
-import StallLocationTable from "./components/StallLocationTable";
+import StallTable from "./components/tables/StallTable";
+import StallLocationTable from "./components/tables/StallLocationTable";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import { Paper } from "@mui/material";
 import ButtonAppBar from "./components/AppBar";
+import TenantDialog from "./components/dialogs/TenantDialog";
 
 export const theme = createTheme({
   palette: {
@@ -36,6 +37,7 @@ export const theme = createTheme({
 });
 
 const App: React.FC = () => {
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -46,7 +48,7 @@ const App: React.FC = () => {
           <h2>Einsteller</h2>
           <TenantTable />
           <Fab color="primary" aria-label="add">
-            <AddIcon />
+            <TenantDialog />
           </Fab>
         </div>
         </Paper>
