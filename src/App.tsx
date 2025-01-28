@@ -10,6 +10,8 @@ import ButtonAppBar from "./components/AppBar";
 import TenantPaper from "./components/papers/TenantPaper";
 import HorsePaper from "./components/papers/HorsePaper";
 import StallPaper from "./components/papers/StallPaper";
+import AddStallLocationDialog from "./components/dialogs/AddStallLocationDialog";
+import StallLocationPaper from "./components/papers/StallLocationPaper";
 
 export const theme = createTheme({
   palette: {
@@ -44,22 +46,7 @@ const App: React.FC = () => {
         <TenantPaper />
         <HorsePaper />
         <StallPaper />
-        <Paper
-          elevation={3}
-          style={{
-            padding: "16px",
-            marginBottom: "24px",
-            backgroundColor: theme.palette.secondary.main,
-          }}
-        >
-          <div style={{ marginBottom: "24px" }}>
-            <h2>Standorte</h2>
-            <StallLocationTable />
-            <Fab color="primary" aria-label="add">
-              <AddIcon />
-            </Fab>
-          </div>
-        </Paper>
+        <StallLocationPaper />
       </div>
     </ThemeProvider>
   );

@@ -1,30 +1,24 @@
-import React, { useState } from "react";
 import {
-  Fab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Fab,
   TextField,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
 
-const TenantDialog: React.FC = () => {
+const AddStallLocationDialog: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const handleSubmit = async () => {
-    console.log("New Tenant:", { name });
-    await fetch("http://localhost:8080/tenants", {
+    console.log("New Stall Location: ", { name });
+    await fetch("http://localhost:8080/stall-locations", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -35,15 +29,13 @@ const TenantDialog: React.FC = () => {
     setOpen(false);
     setName("");
   };
-
   return (
     <div>
       <Fab color="primary" aria-label="add" onClick={handleOpen}>
         <AddIcon />
       </Fab>
-
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Einsteller hinzufügen</DialogTitle>
+        <DialogTitle>Standort hinzufügen</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -68,4 +60,4 @@ const TenantDialog: React.FC = () => {
   );
 };
 
-export default TenantDialog;
+export default AddStallLocationDialog;
