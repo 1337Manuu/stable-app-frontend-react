@@ -1,6 +1,4 @@
 import React from "react";
-import HorseTable from "./components/tables/HorseTable";
-import TenantTable from "./components/tables/TenantTable";
 import "./App.css";
 import StallTable from "./components/tables/StallTable";
 import StallLocationTable from "./components/tables/StallLocationTable";
@@ -10,7 +8,8 @@ import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import { Paper } from "@mui/material";
 import ButtonAppBar from "./components/AppBar";
-import TenantDialog from "./components/dialogs/TenantDialog";
+import TenantPaper from "./components/papers/TenantPaper";
+import HorsePaper from "./components/papers/HorsePaper";
 
 export const theme = createTheme({
   palette: {
@@ -37,47 +36,44 @@ export const theme = createTheme({
 });
 
 const App: React.FC = () => {
-  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-        <ButtonAppBar />
+      <ButtonAppBar />
       <div style={{ padding: "16px" }}>
-        <Paper elevation={3} style={{ padding: "16px", marginBottom: "24px", backgroundColor: theme.palette.secondary.main }}>
-        <div style={{ marginBottom: "24px" }}>
-          <h2>Einsteller</h2>
-          <TenantTable />
-          <Fab color="primary" aria-label="add">
-            <TenantDialog />
-          </Fab>
-        </div>
+        <TenantPaper />
+        <HorsePaper />
+        <Paper
+          elevation={3}
+          style={{
+            padding: "16px",
+            marginBottom: "24px",
+            backgroundColor: theme.palette.secondary.main,
+          }}
+        >
+          <div style={{ marginBottom: "24px" }}>
+            <h2>Boxen</h2>
+            <StallTable />
+            <Fab color="primary" aria-label="add">
+              <AddIcon />
+            </Fab>
+          </div>
         </Paper>
-        <Paper elevation={3} style={{ padding: "16px", marginBottom: "24px", backgroundColor: theme.palette.secondary.main }}>
-        <div style={{ marginBottom: "24px" }}>
-          <h2>Pferde</h2>
-          <HorseTable />
-          <Fab color="primary" aria-label="add">
-            <AddIcon />
-          </Fab>
-        </div>
-        </Paper>
-        <Paper elevation={3} style={{ padding: "16px", marginBottom: "24px", backgroundColor: theme.palette.secondary.main }}>
-        <div style={{ marginBottom: "24px" }}>
-          <h2>Boxen</h2>
-          <StallTable />
-          <Fab color="primary" aria-label="add">
-            <AddIcon />
-          </Fab>
-        </div>
-        </Paper>
-        <Paper elevation={3} style={{ padding: "16px", marginBottom: "24px", backgroundColor: theme.palette.secondary.main }}>
-        <div style={{ marginBottom: "24px" }}>
-          <h2>Standorte</h2>
-          <StallLocationTable />
-          <Fab color="primary" aria-label="add">
-            <AddIcon />
-          </Fab>
-        </div>
+        <Paper
+          elevation={3}
+          style={{
+            padding: "16px",
+            marginBottom: "24px",
+            backgroundColor: theme.palette.secondary.main,
+          }}
+        >
+          <div style={{ marginBottom: "24px" }}>
+            <h2>Standorte</h2>
+            <StallLocationTable />
+            <Fab color="primary" aria-label="add">
+              <AddIcon />
+            </Fab>
+          </div>
         </Paper>
       </div>
     </ThemeProvider>

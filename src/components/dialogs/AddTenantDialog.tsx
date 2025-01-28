@@ -11,8 +11,8 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 
 const TenantDialog: React.FC = () => {
-  const [open, setOpen] = useState(false); // State to manage dialog visibility
-  const [name, setName] = useState(""); // State for tenant name
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -38,12 +38,10 @@ const TenantDialog: React.FC = () => {
 
   return (
     <div>
-      {/* Floating Action Button */}
       <Fab color="primary" aria-label="add" onClick={handleOpen}>
         <AddIcon />
       </Fab>
 
-      {/* Dialog for Adding Tenant */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Tenant</DialogTitle>
         <DialogContent>
