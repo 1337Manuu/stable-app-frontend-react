@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import StallTable from "./components/tables/StallTable";
 import StallLocationTable from "./components/tables/StallLocationTable";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -10,6 +9,7 @@ import { Paper } from "@mui/material";
 import ButtonAppBar from "./components/AppBar";
 import TenantPaper from "./components/papers/TenantPaper";
 import HorsePaper from "./components/papers/HorsePaper";
+import StallPaper from "./components/papers/StallPaper";
 
 export const theme = createTheme({
   palette: {
@@ -43,22 +43,7 @@ const App: React.FC = () => {
       <div style={{ padding: "16px" }}>
         <TenantPaper />
         <HorsePaper />
-        <Paper
-          elevation={3}
-          style={{
-            padding: "16px",
-            marginBottom: "24px",
-            backgroundColor: theme.palette.secondary.main,
-          }}
-        >
-          <div style={{ marginBottom: "24px" }}>
-            <h2>Boxen</h2>
-            <StallTable />
-            <Fab color="primary" aria-label="add">
-              <AddIcon />
-            </Fab>
-          </div>
-        </Paper>
+        <StallPaper />
         <Paper
           elevation={3}
           style={{

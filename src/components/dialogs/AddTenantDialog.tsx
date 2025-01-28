@@ -43,7 +43,7 @@ const TenantDialog: React.FC = () => {
       </Fab>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New Tenant</DialogTitle>
+        <DialogTitle>Einsteller hinzufügen</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus

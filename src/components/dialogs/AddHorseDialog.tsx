@@ -56,7 +56,7 @@ const HorseDialog: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log("New Horse:", { name }, { selectedTenant });
+    console.log("New Horse:", { name }, { selectedTenant }, {selectedStall});
     fetch("http://localhost:8080/horses", {
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const HorseDialog: React.FC = () => {
 
     setOpen(false);
     setName("");
-    setSelectedTenantName(null);
+    setSelectedTenantName("");
   };
 
   return (
