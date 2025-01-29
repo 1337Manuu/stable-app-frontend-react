@@ -10,24 +10,25 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { StallLocation } from "../../models/StallLocation";
+import {
+  Stall,
+  StallLocation,
+  useAppContext,
+} from "../../context/AppContextProvider";
 
-const AddStallDialog: React.FC = () => {
+const AddStallDialog: React.FC<{
+  setStalls: React.Dispatch<React.SetStateAction<Stall[]>>;
+}> = ({ setStalls }) => {
+  const { stallLocations, setStallLocations } = useAppContext();
   const [open, setOpen] = useState(false);
   const [stallNumber, setBoxNumber] = useState("");
-  const [stallLocations, setStallLocations] = useState<StallLocation[]>([]);
   const [selectedStallLocationName, setSelectedStallLocationName] =
     useState<String | null>(null);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/stall-locations")
-      .then((response) => response.json())
-      .then((data: StallLocation[]) => setStallLocations(data));
-  }, []);
 
   const stallLocationNames: String[] = stallLocations?.map(
     (stallLocation) => stallLocation.name
   );
+
   const selectedStallLocation = stallLocations.find(
     (stallLocation) => stallLocation.name === selectedStallLocationName
   );
@@ -46,7 +47,15 @@ const AddStallDialog: React.FC = () => {
         stallNumber: stallNumber,
         stallLocationId: selectedStallLocation?.id,
       }),
-    });
+    })
+      .then((response) => response.json())
+      .then((createdStall) => {
+        setStalls((prev) => [...prev, createdStall]);
+      });
+
+    fetch("http://localhost:8080/stall-locations")
+      .then((response) => response.json())
+      .then((data) => setStallLocations(data));
 
     setOpen(false);
     setBoxNumber("");

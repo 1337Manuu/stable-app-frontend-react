@@ -9,8 +9,11 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
+import { StallLocation } from "../../context/AppContextProvider";
 
-const AddStallLocationDialog: React.FC = () => {
+const AddStallLocationDialog: React.FC<{
+  setStallLocations: React.Dispatch<React.SetStateAction<StallLocation[]>>;
+}> = ({ setStallLocations }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
 
@@ -24,7 +27,11 @@ const AddStallLocationDialog: React.FC = () => {
       },
       method: "POST",
       body: JSON.stringify({ name: name }),
-    });
+    })
+      .then((response) => response.json())
+      .then((createdStallLocation) => {
+        setStallLocations((prev) => [...prev, createdStallLocation]);
+      });
 
     setOpen(false);
     setName("");

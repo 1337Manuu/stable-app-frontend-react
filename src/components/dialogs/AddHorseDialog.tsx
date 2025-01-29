@@ -10,30 +10,21 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
-import { Tenant } from "../../models/Tenant";
-import { Stall } from "../../models/Stall";
+import { Tenant, Stall, Horse, useAppContext } from "../../context/AppContextProvider";
 
-const HorseDialog: React.FC = () => {
+const HorseDialog: React.FC<{ setHorses: React.Dispatch<React.SetStateAction<Horse[]>> }> = ({ setHorses }) => {
+  const {tenants, setTenants} = useAppContext();
+  const {stalls, setStalls} = useAppContext();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const [tenants, setTenants] = useState<Tenant[]>([]);
   const [selectedTenantName, setSelectedTenantName] = useState<String | null>(
     null
   );
   const [selectedStallNumber, setSelectedStallNumber] = useState<String | null>(
     null
   );
-  const [stalls, setStalls] = useState<Stall[]>([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/tenants")
-      .then((response) => response.json())
-      .then((data: Tenant[]) => setTenants(data));
-
-    fetch("http://localhost:8080/stalls")
-      .then((response) => response.json())
-      .then((data: Stall[]) => setStalls(data));
-  }, []);
+  
+  
 
   const tenantNameOptions: String[] = tenants.map((tenant) => tenant.name);
   const selectedTenant = tenants.find(
@@ -67,7 +58,19 @@ const HorseDialog: React.FC = () => {
         tenantId: selectedTenant?.id,
         stallId: selectedStall?.id,
       }),
-    });
+    })
+    .then((response) => response.json())
+    .then((createdHorse) => {
+      setHorses((prev) => [...prev, createdHorse])
+    })
+
+    fetch("http://localhost:8080/tenants")
+    .then((response) => response.json())
+    .then((data) => setTenants(data));
+
+    fetch("http://localhost:8080/stalls")
+    .then((response) => response.json())
+    .then((data) => setStalls(data));
 
     setOpen(false);
     setName("");
