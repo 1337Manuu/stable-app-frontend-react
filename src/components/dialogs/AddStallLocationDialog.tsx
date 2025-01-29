@@ -5,6 +5,11 @@ import {
   DialogContent,
   DialogTitle,
   Fab,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Slider,
   TextField,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -17,7 +22,7 @@ const AddStallLocationDialog: React.FC<{
   const { stalls, setStalls } = useAppContext();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const [amountStalls, setAmountStalls] = useState("");
+  const [amountStalls, setAmountStalls] = useState(1);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -41,7 +46,7 @@ const AddStallLocationDialog: React.FC<{
 
     setOpen(false);
     setName("");
-    setAmountStalls("");
+    setAmountStalls(1);
   };
   return (
     <div>
@@ -60,15 +65,19 @@ const AddStallLocationDialog: React.FC<{
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Anzahl Boxen"
-            type="number"
-            fullWidth
-            value={amountStalls}
-            onChange={(e) => setAmountStalls(e.target.value)}
-          />
+          <FormControl fullWidth>
+            <InputLabel>Anzahl Boxen</InputLabel>
+            <Select
+              value={amountStalls}
+              onChange={(e) => setAmountStalls(Number(e.target.value))}
+            >
+              {Array.from({ length: 30 }, (_, i) => i + 1).map((num) => (
+                <MenuItem key={num} value={num}>
+                  {num}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
