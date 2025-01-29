@@ -20,7 +20,7 @@ const HorseDialog: React.FC<{ setHorses: React.Dispatch<React.SetStateAction<Hor
   const [selectedTenantName, setSelectedTenantName] = useState<String | null>(
     null
   );
-  const [selectedStallNumber, setSelectedStallNumber] = useState<String | null>(
+  const [selectedStallNumber, setSelectedStallNumber] = useState<Number | null>(
     null
   );
   
@@ -31,7 +31,7 @@ const HorseDialog: React.FC<{ setHorses: React.Dispatch<React.SetStateAction<Hor
     (tenant) => tenant.name === selectedTenantName
   );
 
-  const stallNumberOptions: String[] = stalls
+  const stallNumberOptions: Number[] = stalls
     .filter((stall) => stall.horse == null)
     .map((stall) => stall.stallNumber);
   const selectedStall = stalls.find(

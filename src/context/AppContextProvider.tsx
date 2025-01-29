@@ -23,7 +23,7 @@ export interface Horse {
 
 export interface Stall {
   id: number;
-  stallNumber: String;
+  stallNumber: number;
   isOccupied: boolean;
   horse: Horse;
   stallLocation: StallLocation;
