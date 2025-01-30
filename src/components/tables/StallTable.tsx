@@ -5,16 +5,16 @@ import { Paper } from "@mui/material";
 
 const columns: GridColDef[] = [
   { field: "boxNumber", headerName: "Box Nr.", width: 150 },
-  { field: "horse", headerName: "Pferd", width: 150 },
   { field: "location", headerName: "Standort", width: 150 },
+  { field: "horse", headerName: "Pferd", width: 150 },
 ];
 
 const StallTable: React.FC<{ stalls: Stall[] }> = ({ stalls }) => {
   const rows = stalls.map((stall) => ({
     id: stall.id,
     boxNumber: stall.stallNumber,
-    horse: stall.horse ? stall.horse.name : "Box Frei",
     location: stall.stallLocation.name,
+    horse: stall.horse ? stall.horse.name : "Box Frei",
   }));
   return (
     <Paper
