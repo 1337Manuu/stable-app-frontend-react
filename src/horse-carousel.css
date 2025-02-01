@@ -1,0 +1,40 @@
+.horses-carousel {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.horse-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #f5f5dc;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.horse-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+}
+
+.horse-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.horse-stall {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #6b8e23;
+}
