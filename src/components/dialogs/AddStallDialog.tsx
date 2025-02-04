@@ -38,7 +38,7 @@ const AddStallDialog: React.FC<{
 
   const handleSubmit = async () => {
     console.log("New Stall: ", { stallNumber }, { selectedStallLocation });
-    await fetch("http://localhost:8080/stalls", {
+    await fetch("http://localhost:80/stalls", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -53,7 +53,7 @@ const AddStallDialog: React.FC<{
         setStalls((prev) => [...prev, createdStall]);
       });
 
-    fetch("http://localhost:8080/stall-locations")
+    fetch("http://localhost:80/stall-locations")
       .then((response) => response.json())
       .then((data) => setStallLocations(data));
 

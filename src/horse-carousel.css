@@ -14,11 +14,14 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .horse-avatar {
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   margin-bottom: 0.5rem;
   object-fit: cover;
@@ -27,12 +30,22 @@
 .horse-name {
   font-size: 1.2rem;
   font-weight: bold;
+  margin:auto;
   margin-bottom: 0.3rem;
 }
 
 .horse-stall {
   font-size: 0.9rem;
   color: #666;
+  margin: auto;
+  }
+
+.horse-name, .horse-stall {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+
 }
 
 .swiper-pagination-bullet-active {

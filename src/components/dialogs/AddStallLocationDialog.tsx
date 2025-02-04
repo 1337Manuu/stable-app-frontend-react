@@ -28,7 +28,7 @@ const AddStallLocationDialog: React.FC<{
   const handleClose = () => setOpen(false);
   const handleSubmit = async () => {
     console.log("New Stall Location: ", { name }, { amountStalls });
-    await fetch("http://localhost:8080/stall-locations", {
+    await fetch("http://localhost:80/stall-locations", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -40,7 +40,7 @@ const AddStallLocationDialog: React.FC<{
         setStallLocations((prev) => [...prev, createdStallLocation]);
       });
 
-    fetch("http://localhost:8080/stalls")
+    fetch("http://localhost:80/stalls")
       .then((response) => response.json())
       .then((data) => setStalls(data));
 

@@ -25,7 +25,7 @@ const TenantDialog: React.FC<{ setTenants: React.Dispatch<React.SetStateAction<T
 
   const handleSubmit = async () => {
     console.log("New Tenant:", { name });
-    await fetch("http://localhost:8080/tenants", {
+    await fetch("http://localhost:80/tenants", {
       headers: {
         "Content-Type": "application/json",
       },

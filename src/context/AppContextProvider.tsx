@@ -66,22 +66,22 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Optionally preload data
   useEffect(() => {
-    fetch("http://localhost:8080/tenants")
+    fetch("http://localhost:80/tenants")
       .then((res) => res.json())
       .then((data) => setTenants(data))
       .catch(console.error);
 
-    fetch("http://localhost:8080/horses")
+    fetch("http://localhost:80/horses")
       .then((res) => res.json())
       .then((data) => setHorses(data))
       .catch(console.error);
 
-    fetch("http://localhost:8080/stalls")
+    fetch("http://localhost:80/stalls")
       .then((res) => res.json())
       .then((data) => setStalls(data))
       .catch(console.error);
 
-    fetch("http://localhost:8080/stall-locations")
+    fetch("http://localhost:80/stall-locations")
       .then((res) => res.json())
       .then((data) => setStallLocations(data))
       .catch(console.error);

@@ -55,7 +55,7 @@ const HorseDialog: React.FC<{
 
   const handleSubmit = async () => {
     console.log("New Horse:", { name }, { selectedTenant }, { selectedStall });
-    await fetch("http://localhost:8080/horses", {
+    await fetch("http://localhost:80/horses", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -71,15 +71,15 @@ const HorseDialog: React.FC<{
         setHorses((prev) => [...prev, createdHorse]);
       });
 
-    fetch("http://localhost:8080/tenants")
+    fetch("http://localhost:80/tenants")
       .then((response) => response.json())
       .then((data) => setTenants(data));
 
-    fetch("http://localhost:8080/stalls")
+    fetch("http://localhost:80/stalls")
       .then((response) => response.json())
       .then((data) => setStalls(data));
 
-    fetch("http://localhost:8080/stall-locations")
+    fetch("http://localhost:80/stall-locations")
       .then((response) => response.json())
       .then((data) => setStallLocations(data));
 
