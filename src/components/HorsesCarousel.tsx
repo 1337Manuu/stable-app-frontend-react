@@ -4,7 +4,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../horse-carousel.css";
+import "../styles/horse-carousel.css";
 import { Horse } from "../context/AppContextProvider";
 import {
   Dialog,

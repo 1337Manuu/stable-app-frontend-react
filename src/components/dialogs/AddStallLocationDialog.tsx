@@ -1,33 +1,32 @@
 import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Fab,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Slider,
-  TextField,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { StallLocation, useAppContext } from "../../context/AppContextProvider";
+import AddButton from "../common/AddButton";
+import DefaultDialog from "../common/DefaultDialog";
+import FormField from "../common/FormField";
 
 const AddStallLocationDialog: React.FC<{
   setStallLocations: React.Dispatch<React.SetStateAction<StallLocation[]>>;
 }> = ({ setStallLocations }) => {
   const { stalls, setStalls } = useAppContext();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [amountStalls, setAmountStalls] = useState(1);
+  const [formState, setFormState] = useState({
+    name: "",
+    amountStalls: 1,
+  });
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleFieldChange = (field: string) => (event: any, value?: any) => {
+    setFormState((prev) => ({ ...prev, [field]: event.target.value }));
+  };
+
   const handleSubmit = async () => {
-    console.log("New Stall Location: ", { name }, { amountStalls });
+    const { name, amountStalls } = formState;
+
     await fetch("http://localhost:80/stall-locations", {
       headers: {
         "Content-Type": "application/json",
@@ -40,55 +39,46 @@ const AddStallLocationDialog: React.FC<{
         setStallLocations((prev) => [...prev, createdStallLocation]);
       });
 
-    fetch("http://localhost:80/stalls")
-      .then((response) => response.json())
-      .then((data) => setStalls(data));
+      setOpen(false);
+      setFormState({
+        name: "",
+        amountStalls: 1
+      })
 
-    setOpen(false);
-    setName("");
-    setAmountStalls(1);
+      fetch("http://localhost:80/stalls")
+        .then((response) => response.json())
+        .then((data) => setStalls(data));
   };
   return (
-    <div>
-      <Fab color="primary" aria-label="add" onClick={handleOpen}>
-        <AddIcon />
-      </Fab>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Standort hinzufügen</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Name"
-            type="text"
-            fullWidth
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <FormControl fullWidth>
-            <InputLabel>Anzahl Boxen</InputLabel>
-            <Select
-              value={amountStalls}
-              onChange={(e) => setAmountStalls(Number(e.target.value))}
-            >
-              {Array.from({ length: 30 }, (_, i) => i + 1).map((num) => (
-                <MenuItem key={num} value={num}>
-                  {num}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <>
+      <AddButton onClick={() => setOpen(true)} />
+      <DefaultDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        title={"Standort hinzufügen"}
+        onSubmit={handleSubmit}
+      >
+        <FormField
+          type={"text"}
+          label={"Name"}
+          value={formState.name}
+          onChange={handleFieldChange("name")}
+        />
+        <FormControl fullWidth>
+          <InputLabel>Anzahl Boxen</InputLabel>
+          <Select
+            value={formState.amountStalls}
+            onChange={handleFieldChange("amountStalls")}
+          >
+            {Array.from({ length: 30 }, (_, i) => i + 1).map((num) => (
+              <MenuItem key={num} value={num}>
+                {num}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </DefaultDialog>
+    </>
   );
 };
 

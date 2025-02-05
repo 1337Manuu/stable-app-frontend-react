@@ -1,30 +1,20 @@
 import React, { useState } from "react";
-import {
-  Fab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
-} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { Tenant } from "../../context/AppContextProvider";
+import AddButton from "../common/AddButton";
+import DefaultDialog from "../common/DefaultDialog";
+import FormField from "../common/FormField";
 
-const TenantDialog: React.FC<{ setTenants: React.Dispatch<React.SetStateAction<Tenant[]>> }> = ({ setTenants }) => {
+const TenantDialog: React.FC<{ setTenants: any }> = ({ setTenants }) => {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const [formState, setFormState] = useState({name: ""})
+  
+  const handleFieldChange = (field: string) => (event: any, value?: any) => {
+    setFormState((prev) => ({ ...prev, [field]: value || event.target.value }));
   };
 
   const handleSubmit = async () => {
-    console.log("New Tenant:", { name });
+    const {name} = formState
+
     await fetch("http://localhost:80/tenants", {
       headers: {
         "Content-Type": "application/json",
@@ -34,43 +24,32 @@ const TenantDialog: React.FC<{ setTenants: React.Dispatch<React.SetStateAction<T
     })
       .then((response) => response.json())
       .then((createdTenant) => {
-        setTenants((prev) => [...prev, createdTenant]);
+        setTenants((prev: Tenant[]) => [...prev, createdTenant]);
 
         setOpen(false);
-        setName("");
+        setFormState({name: ""});
       });
-    }
-
-    return (
-      <div>
-        <Fab color="primary" aria-label="add" onClick={handleOpen}>
-          <AddIcon />
-        </Fab>
-
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Einsteller hinzufügen</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              label="Name"
-              type="text"
-              fullWidth
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="secondary">
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit} color="primary">
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    )
   };
+
+
+  return (
+    <>
+      <AddButton onClick={() => setOpen(true)} />
+      <DefaultDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmit={handleSubmit}
+        title="Einsteller hinzufügen"
+      >
+        <FormField
+          type={"text"}
+          label={"Name"}
+          value={formState.name}
+          onChange={handleFieldChange("name")}
+        />
+      </DefaultDialog>
+    </>
+  );
+};
 
 export default TenantDialog;

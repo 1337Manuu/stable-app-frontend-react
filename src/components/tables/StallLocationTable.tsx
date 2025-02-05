@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
-import { Stall, StallLocation } from "../../context/AppContextProvider";
+import React from "react";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { StallLocation } from "../../context/AppContextProvider";
 import { Paper } from "@mui/material";
 
 const columns: GridColDef[] = [
@@ -22,10 +22,10 @@ const StallLocationTable: React.FC<{ stallLocations: StallLocation[] }> = ({
   return (
     <Paper
       elevation={3}
-      style={{
+      sx={{
         padding: "16px",
         marginBottom: "24px",
-        backgroundColor: "#f5f5dc",
+        backgroundColor: "background.default",
       }}
     >
       <div style={{ height: 300, width: "100%" }}>

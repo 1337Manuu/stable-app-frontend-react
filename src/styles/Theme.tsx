@@ -1,15 +1,15 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#6b8e23", // Olive green for buttons, headers, etc.
+      main: "#6b8e23",
     },
     secondary: {
-      main: "#8b4513", // Saddle brown for accents
+      main: "#d2b48c",
     },
     background: {
-      default: "#f5f5dc", // Beige background
+      default: "#f5f5dc",
     },
   },
   typography: {

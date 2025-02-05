@@ -1,7 +1,6 @@
 import { Paper } from "@mui/material"
 import StallLocationTable from "../tables/StallLocationTable"
 import AddStallLocationDialog from "../dialogs/AddStallLocationDialog"
-import { theme } from "../../App"
 import { useAppContext } from "../../context/AppContextProvider"
 
 const StallLocationPaper: React.FC = () => { 
@@ -10,10 +9,10 @@ const StallLocationPaper: React.FC = () => {
     return(
         <Paper
         elevation={3}
-        style={{
+        sx={{
           padding: "16px",
           marginBottom: "24px",
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: "secondary.main",
         }}
       >
         <div style={{ marginBottom: "24px" }}>

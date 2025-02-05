@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import React, { useState } from "react";
 import { Horse, useAppContext } from "../../context/AppContextProvider";
 import {
   Autocomplete,
@@ -17,18 +16,8 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const columns: GridColDef[] = [
-  { field: "name", headerName: "Name", width: 150 },
-  { field: "stallLocation", headerName: "Standort", width: 150 },
-  { field: "stall", headerName: "Box", width: 150 },
-  { field: "tenant", headerName: "Besitzer", width: 150 },
-];
-
 const HorseTable: React.FC<{ horses: Horse[] }> = ({ horses }) => {
-  const { setHorses } = useAppContext();
-  const { tenants, setTenants } = useAppContext();
-  const { stalls, setStalls } = useAppContext();
-  const { stallLocations, setStallLocations } = useAppContext();
+  const { setHorses, tenants, stalls, stallLocations } = useAppContext();
   const [editMode, setEditMode] = useState(false);
   const [editingRowId, setEditingRowId] = useState<number | null>(null);
   const [selectedTenantName, setSelectedTenantName] = useState<String | null>(
@@ -40,18 +29,7 @@ const HorseTable: React.FC<{ horses: Horse[] }> = ({ horses }) => {
     null
   );
 
-  const rows = horses.map((horse) => ({
-    id: horse.id,
-    name: horse.name,
-    stallLocation: horse.stall.stallLocation.name,
-    stall: horse.stall.stallNumber,
-    tenant: horse.tenant.name,
-  }));
-
   const tenantNameOptions: String[] = tenants.map((tenant) => tenant.name);
-  const selectedTenant = tenants.find(
-    (tenant) => tenant.name === selectedTenantName
-  );
 
   const stallLocationOptions: String[] = stallLocations.map(
     (stallLocation) => stallLocation.name
@@ -61,12 +39,6 @@ const HorseTable: React.FC<{ horses: Horse[] }> = ({ horses }) => {
     .filter((stall) => stall.stallLocation.name === selectedStallLocation)
     .filter((stall) => stall.horse == null)
     .map((stall) => stall.stallNumber);
-
-  const selectedStall = stalls.find(
-    (stall) =>
-      stall.stallNumber === selectedStallNumber &&
-      stall.stallLocation.name === selectedStallLocation
-  );
 
   const handleSave = () => {
     setEditMode(false);
@@ -86,10 +58,10 @@ const HorseTable: React.FC<{ horses: Horse[] }> = ({ horses }) => {
   return (
     <Paper
       elevation={3}
-      style={{
+      sx={{
         padding: "16px",
         marginBottom: "24px",
-        backgroundColor: "#f5f5dc",
+        backgroundColor: "secondary.main",
       }}
     >
       <TableContainer>

@@ -1,20 +1,18 @@
 import { Paper } from "@mui/material";
-import { theme } from "../../App";
-import HorseTable from "../tables/HorseTable";
 import HorseDialog from "../dialogs/AddHorseDialog";
 import { useAppContext } from "../../context/AppContextProvider";
 import HorsesCarousel from "../HorsesCarousel";
 
-const TenantPaper: React.FC = () => {
+const HorsePaper: React.FC = () => {
     const { horses, setHorses } = useAppContext()
 
 return(
     <Paper
     elevation={3}
-    style={{
+    sx={{
       padding: "16px",
       marginBottom: "24px",
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: "secondary.main",
     }}
   >
     <div style={{ marginBottom: "24px" }}>
@@ -25,4 +23,4 @@ return(
   </Paper>
 )}
 
-export default TenantPaper
+export default HorsePaper
