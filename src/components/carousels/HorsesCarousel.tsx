@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Horse } from "../../context/AppContextProvider";
 import DefaultCarousel from "../common/DefaultCarousel";
+import ProfileDialog from "../common/ProfileDialog";
 
 const HorsesCarousel: React.FC<{horses: Horse[]}> = ({ horses }) => {
   const [selectedHorse, setSelectedHorse] = useState<Horse | null>(null);
@@ -44,16 +45,13 @@ const HorsesCarousel: React.FC<{horses: Horse[]}> = ({ horses }) => {
             </>
         )}
       />
-      <Dialog
+      <ProfileDialog
         open={!!selectedHorse}
         onClose={closeModal}
-        fullWidth
-        maxWidth="sm"
+        title={`${selectedHorse?.name}'s Profil`}
       >
         {selectedHorse && (
           <>
-            <DialogTitle>{selectedHorse.name}'s Profile</DialogTitle>
-            <DialogContent>
               <img
                 src={"sample-horse-avatar.webp"}
                 alt={`${selectedHorse.name}'s avatar`}
@@ -76,15 +74,9 @@ const HorsesCarousel: React.FC<{horses: Horse[]}> = ({ horses }) => {
                 fugit, esse, placeat animi sed ullam magni consectetur assumenda
                 et sint neque accusantium.
               </p>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={closeModal} color="primary" variant="contained">
-                Close
-              </Button>
-            </DialogActions>
           </>
         )}
-      </Dialog>
+      </ProfileDialog>
     </div>
   );
 };

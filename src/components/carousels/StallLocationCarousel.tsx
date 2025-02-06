@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { StallLocation } from "../../context/AppContextProvider";
 import DefaultCarousel from "../common/DefaultCarousel";
+import ProfileDialog from "../common/ProfileDialog";
 
 const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({ stallLocations }) => {
   const [selectedStallLocation, setSelectedStallLocation] =
@@ -45,16 +46,13 @@ const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({ 
           </>
         )}
       />
-      <Dialog
+      <ProfileDialog
         open={!!selectedStallLocation}
         onClose={closeModal}
-        fullWidth
-        maxWidth="sm"
+        title={`${selectedStallLocation?.name} Übersicht`}
       >
         {selectedStallLocation && (
           <>
-            <DialogTitle>{selectedStallLocation.name} Übersicht</DialogTitle>
-            <DialogContent>
               <img
                 src={"sample-horse-avatar.webp"}
                 alt={`${selectedStallLocation.name}'s avatar`}
@@ -77,15 +75,9 @@ const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({ 
                 fugit, esse, placeat animi sed ullam magni consectetur assumenda
                 et sint neque accusantium.
               </p>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={closeModal} color="primary" variant="contained">
-                Close
-              </Button>
-            </DialogActions>
           </>
         )}
-      </Dialog>
+      </ProfileDialog>
     </div>
   );
 };
