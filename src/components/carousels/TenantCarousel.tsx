@@ -9,6 +9,7 @@ import {
 import { Tenant } from "../../context/AppContextProvider";
 import DefaultCarousel from "../common/DefaultCarousel";
 import ProfileDialog from "../common/ProfileDialog";
+import "../../styles/carousel.css";
 
 const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
   const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
@@ -28,7 +29,7 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
         slidesPerView={2}
         rows={2}
         renderItem={(tenant: Tenant) => (
-          <>
+          <div className="card">
             <img
               src={"sample-horse-avatar.webp"}
               alt={`${tenant.name}'s avatar`}
@@ -42,7 +43,7 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
               {tenant.horses.length === 1 ? "Pferd" : "Pferde"}
               <br />
             </p>
-          </>
+          </div>
         )}
       />
       <ProfileDialog
@@ -68,7 +69,7 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
               <strong>Pferde:</strong>
             </p>
             {selectedTenant.horses.map((horse) => (
-              <p>{horse.name}</p>
+              <p key={horse.id}>{horse.name}</p>
             ))}
           </>
         )}

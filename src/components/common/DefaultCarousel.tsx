@@ -17,7 +17,7 @@ const DefaultCarousel: React.FC<DefaultCarouselProps> = ({
     items,
     slidesPerView = 2,
     rows = 1,
-    renderItem
+    renderItem,
  }) => {
     return(
     <div className="carousel">
@@ -32,9 +32,7 @@ const DefaultCarousel: React.FC<DefaultCarouselProps> = ({
       >
         {items.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="card">
             {renderItem(item)}
-            </div>
           </SwiperSlide>
         ))}
       </Swiper>
