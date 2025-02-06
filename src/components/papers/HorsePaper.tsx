@@ -1,7 +1,7 @@
 import { Paper } from "@mui/material";
 import HorseDialog from "../dialogs/AddHorseDialog";
 import { useAppContext } from "../../context/AppContextProvider";
-import HorsesCarousel from "../HorsesCarousel";
+import HorsesCarousel from "../carousels/HorsesCarousel";
 
 const HorsePaper: React.FC = () => {
     const { horses, setHorses } = useAppContext()

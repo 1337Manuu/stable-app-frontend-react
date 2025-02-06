@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "../styles/horse-carousel.css";
-import { Horse } from "../context/AppContextProvider";
 import {
   Dialog,
   DialogTitle,
@@ -13,6 +6,8 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { Horse } from "../../context/AppContextProvider";
+import DefaultCarousel from "../common/DefaultCarousel";
 
 interface HorsesCarouselProps {
   horses: Horse[];
@@ -30,37 +25,29 @@ const HorsesCarousel: React.FC<HorsesCarouselProps> = ({ horses }) => {
   };
 
   return (
-    <div className="horses-carousel">
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={20}
+    <div className="carousel">
+      <DefaultCarousel
+        items={horses}
         slidesPerView={2}
-        grid={{
-          rows: 2,
-        }}
-        pagination={{ clickable: true }}
-      >
-        {horses.map((horse) => (
-          <SwiperSlide key={horse.id}>
-            <div className="horse-card">
-              <img
-                src={"sample-horse-avatar.webp"}
-                alt={`${horse.name}'s avatar`}
-                className="horse-avatar"
-              />
-              <h3 className="horse-name" onClick={() => openModal(horse)}>
-                {horse.name}
-              </h3>
-              <p className="horse-stall">
-                Box {horse.stall.stallNumber} <br />{" "}
-                {horse.stall.stallLocation.name}
-              </p>
-
-              <p className="horse-stall">gehört {horse.tenant.name}</p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        rows={2}
+        renderItem={(horse: Horse) => (
+            <>
+            <img
+              src={"sample-horse-avatar.webp"}
+              alt={`${horse.name}'s avatar`}
+              className="avatar"
+            />
+            <h3 className="name" onClick={() => openModal(horse)}>
+              {horse.name}
+            </h3>
+            <p className="stall">
+              Box {horse.stall.stallNumber} <br />
+              {horse.stall.stallLocation.name}
+            </p>
+            <p className="stall">gehört {horse.tenant.name}</p>
+            </>
+        )}
+      />
       <Dialog
         open={!!selectedHorse}
         onClose={closeModal}
@@ -71,7 +58,7 @@ const HorsesCarousel: React.FC<HorsesCarouselProps> = ({ horses }) => {
           <>
             <DialogTitle>{selectedHorse.name}'s Profile</DialogTitle>
             <DialogContent>
-            <img
+              <img
                 src={"sample-horse-avatar.webp"}
                 alt={`${selectedHorse.name}'s avatar`}
                 width="100px"

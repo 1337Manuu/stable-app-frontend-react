@@ -1,11 +1,11 @@
-.horses-carousel {
+.carousel {
   width: 100%;
   max-width: 600px;
   margin: auto;
   padding: 1rem;
 }
 
-.horse-card {
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +19,7 @@
   overflow: hidden;
 }
 
-.horse-avatar {
+.avatar {
   width: 75px;
   height: 75px;
   border-radius: 50%;
@@ -27,20 +27,20 @@
   object-fit: cover;
 }
 
-.horse-name {
+.name {
   font-size: 1.2rem;
   font-weight: bold;
   margin:auto;
   margin-bottom: 0.3rem;
 }
 
-.horse-stall {
+.stall {
   font-size: 0.9rem;
   color: #666;
   margin: auto;
   }
 
-.horse-name, .horse-stall {
+.name, .stall {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

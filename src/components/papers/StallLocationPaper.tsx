@@ -1,7 +1,7 @@
 import { Paper } from "@mui/material"
-import StallLocationTable from "../tables/StallLocationTable"
 import AddStallLocationDialog from "../dialogs/AddStallLocationDialog"
 import { useAppContext } from "../../context/AppContextProvider"
+import StallLocationCarousel from "../carousels/StallLocationCarousel"
 
 const StallLocationPaper: React.FC = () => { 
     const {stallLocations, setStallLocations} = useAppContext()
@@ -17,7 +17,7 @@ const StallLocationPaper: React.FC = () => {
       >
         <div style={{ marginBottom: "24px" }}>
           <h2>Standorte</h2>
-          <StallLocationTable stallLocations={stallLocations} />
+          <StallLocationCarousel stallLocations={stallLocations} />
           <AddStallLocationDialog setStallLocations={setStallLocations}/>
         </div>
       </Paper>
