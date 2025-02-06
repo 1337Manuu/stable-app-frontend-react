@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import { StallLocation, useAppContext } from "../../context/AppContextProvider";
 import AddButton from "../common/AddButton";
-import DefaultDialog from "../common/DefaultDialog";
+import DefaultDialog from "../common/FormDialog";
 import FormField from "../common/FormField";
 
 const AddStallLocationDialog: React.FC<{

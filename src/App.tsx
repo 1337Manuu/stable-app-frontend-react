@@ -19,8 +19,8 @@ const App: React.FC = () => {
         <div style={{ padding: "16px" }}>
           <TenantPaper />
           <HorsePaper />
-          <StallPaper />
           <StallLocationPaper />
+          <StallPaper />
         </div>
       </AppContextProvider>
     </ThemeProvider>

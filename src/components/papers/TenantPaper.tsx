@@ -1,7 +1,7 @@
 import { Paper } from "@mui/material";
-import TenantTable from "../tables/TenantTable";
 import TenantDialog from "../dialogs/AddTenantDialog";
 import { useAppContext } from "../../context/AppContextProvider";
+import TenantCarousel from "../carousels/TenantCarousel";
 
 const TenantPaper: React.FC = () => {
   const { tenants, setTenants } = useAppContext();
@@ -17,7 +17,7 @@ const TenantPaper: React.FC = () => {
     >
       <div style={{ marginBottom: "24px" }}>
         <h2>Einsteller</h2>
-        <TenantTable tenants={tenants} />
+        <TenantCarousel tenants={tenants} />
         <TenantDialog setTenants={setTenants} />
       </div>
     </Paper>

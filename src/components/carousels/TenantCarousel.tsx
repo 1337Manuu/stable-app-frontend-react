@@ -6,70 +6,73 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import { Horse } from "../../context/AppContextProvider";
+import { Tenant } from "../../context/AppContextProvider";
 import DefaultCarousel from "../common/DefaultCarousel";
 
-const HorsesCarousel: React.FC<{horses: Horse[]}> = ({ horses }) => {
-  const [selectedHorse, setSelectedHorse] = useState<Horse | null>(null);
+const TenantCarousel: React.FC<{tenants: Tenant[]}> = ({ tenants }) => {
+  const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
 
-  const openModal = (horse: Horse) => {
-    setSelectedHorse(horse);
+  const openModal = (tenant: Tenant) => {
+    setSelectedTenant(tenant);
   };
 
   const closeModal = () => {
-    setSelectedHorse(null);
+    setSelectedTenant(null);
   };
 
   return (
     <div className="carousel">
       <DefaultCarousel
-        items={horses}
+        items={tenants}
         slidesPerView={2}
         rows={2}
-        renderItem={(horse: Horse) => (
+        renderItem={(tenant: Tenant) => (
             <>
             <img
               src={"sample-horse-avatar.webp"}
-              alt={`${horse.name}'s avatar`}
+              alt={`${tenant.name}'s avatar`}
               className="avatar"
             />
-            <h3 className="name" onClick={() => openModal(horse)}>
-              {horse.name}
+            <h3 className="name" onClick={() => openModal(tenant)}>
+              {tenant.name}
             </h3>
             <p className="stall">
-              Box {horse.stall.stallNumber} <br />
-              {horse.stall.stallLocation.name}
+              hat {tenant.horses.length} {tenant.horses.length === 1 ? "Pferd" :"Pferde"}<br />
             </p>
-            <p className="stall">gehört {horse.tenant.name}</p>
             </>
         )}
       />
       <Dialog
-        open={!!selectedHorse}
+        open={!!selectedTenant}
         onClose={closeModal}
         fullWidth
         maxWidth="sm"
       >
-        {selectedHorse && (
+        {selectedTenant && (
           <>
-            <DialogTitle>{selectedHorse.name}'s Profile</DialogTitle>
+            <DialogTitle>{selectedTenant.name}'s Profil</DialogTitle>
             <DialogContent>
               <img
                 src={"sample-horse-avatar.webp"}
-                alt={`${selectedHorse.name}'s avatar`}
+                alt={`${selectedTenant.name}'s avatar`}
                 width="100px"
                 height="100px"
               />
               <p>
-                <strong>Standort:</strong>{" "}
-                {selectedHorse.stall.stallLocation.name}
+                <strong>Anzahl Pferde:</strong>{" "}
+                {selectedTenant.horses.length}
               </p>
               <p>
-                <strong>Box:</strong> {selectedHorse.stall.stallNumber}
+                <strong>Tel:</strong> {selectedTenant.phone}
               </p>
               <p>
-                <strong>Besitzer:</strong> {selectedHorse.tenant.name}
+                <strong>Pferde:</strong>
               </p>
+              {selectedTenant.horses.map((horse) => 
+              <p>
+                {horse.name}
+              </p>
+              )}
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
                 voluptatum impedit, ea nesciunt dolores laudantium quos? Modi
@@ -89,4 +92,4 @@ const HorsesCarousel: React.FC<{horses: Horse[]}> = ({ horses }) => {
   );
 };
 
-export default HorsesCarousel;
+export default TenantCarousel;

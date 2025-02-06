@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Tenant } from "../../context/AppContextProvider";
 import AddButton from "../common/AddButton";
-import DefaultDialog from "../common/DefaultDialog";
+import DefaultDialog from "../common/FormDialog";
 import FormField from "../common/FormField";
 
 const TenantDialog: React.FC<{ setTenants: any }> = ({ setTenants }) => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Horse, useAppContext } from "../../context/AppContextProvider";
 import AddButton from "../common/AddButton";
-import DefaultDialog from "../common/DefaultDialog";
+import DefaultDialog from "../common/FormDialog";
 import FormField from "../common/FormField";
 
 const HorseDialog: React.FC<{ setHorses: any }> = ({ setHorses }) => {
