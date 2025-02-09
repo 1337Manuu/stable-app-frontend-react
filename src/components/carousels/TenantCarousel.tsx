@@ -21,8 +21,7 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
     (horse) => horse.tenant.id === selectedTenant?.id
   );
 
-  const openTenantProfile
-   = (tenant: Tenant) => {
+  const openTenantProfile = (tenant: Tenant) => {
     setSelectedTenant(tenant);
   };
 
@@ -30,15 +29,13 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
     setSelectedTenant(null);
   };
 
-  const openHorseProfile
-   = (horse: Horse) => {
+  const openHorseProfile = (horse: Horse) => {
     setSelectedHorse(horse);
   };
 
   const closeHorseProfile = () => {
     setSelectedHorse(null);
   };
-
 
   return (
     <div className="carousel">
@@ -47,16 +44,13 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
         slidesPerView={2}
         rows={2}
         renderItem={(tenant: Tenant) => (
-          <div className="card">
+          <div className="card" onClick={() => openTenantProfile(tenant)} key={tenant.id}>
             <img
               src={"sample-horse-avatar.webp"}
               alt={`${tenant.name}'s avatar`}
               className="avatar"
             />
-            <h3 className="name" onClick={() => openTenantProfile
-              (tenant)}>
-              {tenant.name}
-            </h3>
+            <h3 className="name">{tenant.name}</h3>
             <p className="stall">
               hat {tenant.horses.length}{" "}
               {tenant.horses.length === 1 ? "Pferd" : "Pferde"}
@@ -88,14 +82,19 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
               <strong>Pferde:</strong>
             </p>
             {selectedTenantsHorses.map((horse) => (
-              <div className="card" style={{ flexDirection: "row" }} onClick={() => openHorseProfile(horse)}>
+              <div
+                className="card"
+                style={{ flexDirection: "row" }}
+                onClick={() => openHorseProfile(horse)}
+                key={horse.id}
+              >
                 <div style={{ flexDirection: "column" }}>
                   <img
                     src={"sample-horse-avatar.webp"}
                     alt={`${horse.name}'s avatar`}
                     className="avatar"
                   />
-                  <h3 className="name" >{horse.name}</h3>
+                  <h3 className="name">{horse.name}</h3>
                 </div>
                 <div className="horseInfoProfile">
                   <div className="info">
@@ -114,7 +113,7 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
           </>
         )}
       </ProfileDialog>
-      <HorseProfile horse={selectedHorse} onClose={closeHorseProfile}/>
+      <HorseProfile horse={selectedHorse} onClose={closeHorseProfile} />
     </div>
   );
 };
