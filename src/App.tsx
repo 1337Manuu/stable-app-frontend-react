@@ -20,7 +20,6 @@ const App: React.FC = () => {
           <TenantPaper />
           <HorsePaper />
           <StallLocationPaper />
-          <StallPaper />
         </div>
       </AppContextProvider>
     </ThemeProvider>

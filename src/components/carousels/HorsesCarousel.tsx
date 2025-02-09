@@ -3,15 +3,16 @@ import { Horse } from "../../context/AppContextProvider";
 import DefaultCarousel from "../common/DefaultCarousel";
 import ProfileDialog from "../common/ProfileDialog";
 import "../../styles/carousel.css";
+import HorseProfile from "../Profiles/HorseProfile";
 
 const HorsesCarousel: React.FC<{ horses: Horse[] }> = ({ horses }) => {
   const [selectedHorse, setSelectedHorse] = useState<Horse | null>(null);
 
-  const openModal = (horse: Horse) => {
+  const openHorseProfile = (horse: Horse) => {
     setSelectedHorse(horse);
   };
 
-  const closeModal = () => {
+  const closeHorseProfile = () => {
     setSelectedHorse(null);
   };
 
@@ -22,13 +23,13 @@ const HorsesCarousel: React.FC<{ horses: Horse[] }> = ({ horses }) => {
         slidesPerView={2}
         rows={2}
         renderItem={(horse: Horse) => (
-          <div className="card">
+          <div className="card" onClick={() => openHorseProfile(horse)}>
             <img
               src={"sample-horse-avatar.webp"}
               alt={`${horse.name}'s avatar`}
               className="avatar"
             />
-            <h3 className="name" onClick={() => openModal(horse)}>
+            <h3 className="name">
               {horse.name}
             </h3>
             <p className="stall">
@@ -39,38 +40,7 @@ const HorsesCarousel: React.FC<{ horses: Horse[] }> = ({ horses }) => {
           </div>
         )}
       />
-      <ProfileDialog
-        open={!!selectedHorse}
-        onClose={closeModal}
-        title={`${selectedHorse?.name}'s Profil`}
-      >
-        {selectedHorse && (
-          <>
-            <img
-              src={"sample-horse-avatar.webp"}
-              alt={`${selectedHorse.name}'s avatar`}
-              width="100px"
-              height="100px"
-            />
-            <p>
-              <strong>Standort:</strong>{" "}
-              {selectedHorse.stall.stallLocation.name}
-            </p>
-            <p>
-              <strong>Box:</strong> {selectedHorse.stall.stallNumber}
-            </p>
-            <p>
-              <strong>Besitzer:</strong> {selectedHorse.tenant.name}
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-              voluptatum impedit, ea nesciunt dolores laudantium quos? Modi
-              fugit, esse, placeat animi sed ullam magni consectetur assumenda
-              et sint neque accusantium.
-            </p>
-          </>
-        )}
-      </ProfileDialog>
+      <HorseProfile horse={selectedHorse} onClose={closeHorseProfile}/>
     </div>
   );
 };

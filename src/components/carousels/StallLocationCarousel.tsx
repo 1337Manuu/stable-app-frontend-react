@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
   Card,
   CardActionArea,
   CardMedia,
   CardContent,
-  colors,
 } from "@mui/material";
-import { StallLocation } from "../../context/AppContextProvider";
+import { StallLocation, useAppContext } from "../../context/AppContextProvider";
 import DefaultCarousel from "../common/DefaultCarousel";
 import ProfileDialog from "../common/ProfileDialog";
 
 const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({
   stallLocations,
 }) => {
+  const {stalls} = useAppContext()
   const [selectedStallLocation, setSelectedStallLocation] =
     useState<StallLocation | null>(null);
 
@@ -29,6 +24,8 @@ const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({
     setSelectedStallLocation(null);
   };
 
+  const selectedStallLocationsStalls = stalls.filter((stall) => stall.stallLocation.id === selectedStallLocation?.id)
+
   return (
     <div className="carousel">
       <DefaultCarousel
@@ -37,7 +34,7 @@ const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({
         rows={1}
         renderItem={(stallLocation: StallLocation) => (
           <Card>
-            <CardActionArea>
+            <CardActionArea onClick={() => openModal(stallLocation)}>
               <CardMedia
                 component="img"
                 height="100"
@@ -45,7 +42,7 @@ const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({
                 alt={`${stallLocation.name}'s avatar`}
               />
               <CardContent sx={{backgroundColor: "background.default"}}>
-                <h3 className="name" onClick={() => openModal(stallLocation)}>
+                <h3 className="name">
                   {stallLocation.name}
                 </h3>
                 <p className="stall">
@@ -89,12 +86,30 @@ const StallLocationCarousel: React.FC<{ stallLocations: StallLocation[] }> = ({
                   .length
               }
             </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-              voluptatum impedit, ea nesciunt dolores laudantium quos? Modi
-              fugit, esse, placeat animi sed ullam magni consectetur assumenda
-              et sint neque accusantium.
-            </p>
+            {selectedStallLocationsStalls.map((stall) => (
+              <div className="card" style={{ flexDirection: "row" }} key={stall.id}>
+                <div style={{ flexDirection: "column" }}>
+                  <img
+                    src={"sample-horse-avatar.webp"}
+                    alt={`box number${stall.stallNumber}'s avatar`}
+                    className="avatar"
+                  />
+                  <h3 className="name">{stall.stallNumber}</h3>
+                </div>
+                <div className="horseInfoProfile">
+                  <div className="info">
+                    <span className="label">Standort:</span>
+                    <span className="value">
+                      {stall.stallLocation.name}
+                    </span>
+                  </div>
+                  <div className="info">
+                    <span className="label">Pferd:</span>
+                    <span className="value">{stall.horse ? stall.horse.name : "Box Frei"}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </>
         )}
       </ProfileDialog>

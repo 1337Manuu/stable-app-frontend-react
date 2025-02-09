@@ -6,21 +6,39 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import { Tenant } from "../../context/AppContextProvider";
+import { Horse, Tenant, useAppContext } from "../../context/AppContextProvider";
 import DefaultCarousel from "../common/DefaultCarousel";
 import ProfileDialog from "../common/ProfileDialog";
 import "../../styles/carousel.css";
+import HorseProfile from "../Profiles/HorseProfile";
 
 const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
+  const { horses, setHorses } = useAppContext();
   const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
+  const [selectedHorse, setSelectedHorse] = useState<Horse | null>(null);
 
-  const openModal = (tenant: Tenant) => {
+  const selectedTenantsHorses = horses.filter(
+    (horse) => horse.tenant.id === selectedTenant?.id
+  );
+
+  const openTenantProfile
+   = (tenant: Tenant) => {
     setSelectedTenant(tenant);
   };
 
-  const closeModal = () => {
+  const closeTenantProfile = () => {
     setSelectedTenant(null);
   };
+
+  const openHorseProfile
+   = (horse: Horse) => {
+    setSelectedHorse(horse);
+  };
+
+  const closeHorseProfile = () => {
+    setSelectedHorse(null);
+  };
+
 
   return (
     <div className="carousel">
@@ -35,7 +53,8 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
               alt={`${tenant.name}'s avatar`}
               className="avatar"
             />
-            <h3 className="name" onClick={() => openModal(tenant)}>
+            <h3 className="name" onClick={() => openTenantProfile
+              (tenant)}>
               {tenant.name}
             </h3>
             <p className="stall">
@@ -48,7 +67,7 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
       />
       <ProfileDialog
         open={!!selectedTenant}
-        onClose={closeModal}
+        onClose={closeTenantProfile}
         title={`${selectedTenant?.name}'s Profil`}
       >
         {selectedTenant && (
@@ -68,12 +87,34 @@ const TenantCarousel: React.FC<{ tenants: Tenant[] }> = ({ tenants }) => {
             <p>
               <strong>Pferde:</strong>
             </p>
-            {selectedTenant.horses.map((horse) => (
-              <p key={horse.id}>{horse.name}</p>
+            {selectedTenantsHorses.map((horse) => (
+              <div className="card" style={{ flexDirection: "row" }} onClick={() => openHorseProfile(horse)}>
+                <div style={{ flexDirection: "column" }}>
+                  <img
+                    src={"sample-horse-avatar.webp"}
+                    alt={`${horse.name}'s avatar`}
+                    className="avatar"
+                  />
+                  <h3 className="name" >{horse.name}</h3>
+                </div>
+                <div className="horseInfoProfile">
+                  <div className="info">
+                    <span className="label">Standort:</span>
+                    <span className="value">
+                      {horse.stall.stallLocation.name}
+                    </span>
+                  </div>
+                  <div className="info">
+                    <span className="label">Box:</span>
+                    <span className="value">{horse.stall.stallNumber}</span>
+                  </div>
+                </div>
+              </div>
             ))}
           </>
         )}
       </ProfileDialog>
+      <HorseProfile horse={selectedHorse} onClose={closeHorseProfile}/>
     </div>
   );
 };
