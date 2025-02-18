@@ -107,45 +107,33 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [feedTypes, setFeedTypes] = useState<FeedType[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:80/tenants")
-      .then((res) => res.json())
-      .then((data) => setTenants(data))
-      .catch(console.error);
-
-    fetch("http://localhost:80/horses")
-      .then((res) => res.json())
-      .then((data) => setHorses(data))
-      .catch(console.error);
-
-    fetch("http://localhost:80/stalls")
-      .then((res) => res.json())
-      .then((data) => setStalls(data))
-      .catch(console.error);
-
-    fetch("http://localhost:80/stall-locations")
-      .then((res) => res.json())
-      .then((data) => setStallLocations(data))
-      .catch(console.error);
-
-    fetch("http://localhost:80/feed-schedules")
-      .then((res) => res.json())
-      .then((data) => setFeedSchedules(data))
-      .catch(console.error);
-
-    fetch("http://localhost:80/feedings")
-      .then((res) => res.json())
-      .then((data) => setFeedings(data))
-      .catch(console.error);
-
-      fetch("http://localhost:80/feed-serving-sizes")
-      .then((res) => res.json())
-      .then((data) => setFeedServingSizes(data))
-      .catch(console.error);
-
-      fetch("http://localhost:80/feed-types")
-      .then((res) => res.json())
-      .then((data) => setFeedTypes(data))
-      .catch(console.error);
+    const fetchData = async () => {
+      try {
+        const [tenantsData, horsesData, stallsData, stallLocationsData, feedSchedulesData, feedingsData, feedServingSizesData, feedTypesData] = await Promise.all([
+          fetch("http://localhost:80/tenants").then((res) => res.json()),
+          fetch("http://localhost:80/horses").then((res) => res.json()),
+          fetch("http://localhost:80/stalls").then((res) => res.json()),
+          fetch("http://localhost:80/stall-locations").then((res) => res.json()),
+          fetch("http://localhost:80/feed-schedules").then((res) => res.json()),
+          fetch("http://localhost:80/feedings").then((res) => res.json()),
+          fetch("http://localhost:80/feed-serving-sizes").then((res) => res.json()),
+          fetch("http://localhost:80/feed-types").then((res) => res.json()),
+        ]);
+  
+        setTenants(tenantsData);
+        setHorses(horsesData);
+        setStalls(stallsData);
+        setStallLocations(stallLocationsData);
+        setFeedSchedules(feedSchedulesData);
+        setFeedings(feedingsData);
+        setFeedServingSizes(feedServingSizesData);
+        setFeedTypes(feedTypesData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    fetchData();
   }, []);
 
   return (

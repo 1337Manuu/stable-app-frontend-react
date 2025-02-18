@@ -1,4 +1,3 @@
-import { AutoAwesome, WidthFull } from "@mui/icons-material";
 import { Horse } from "../../context/AppContextProvider";
 import ProfileDialog from "../common/ProfileDialog";
 import {
@@ -9,15 +8,31 @@ import {
   TableCell,
   tableCellClasses,
   TableContainer,
-  TableHead,
   TableRow,
 } from "@mui/material";
+import WbTwilightIcon from '@mui/icons-material/WbTwilight';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 
 const HorseProfile: React.FC<{ horse: Horse | null; onClose: () => void }> = ({
   horse,
   onClose,
 }) => {
   if (!horse) return null;
+
+  const renderFeedTimeIcon = (timeExpression: String) => {
+    switch (timeExpression.toLowerCase()) {
+      case "morgens":
+        return <WbTwilightIcon />;
+      case "mittags":
+        return <WbSunnyIcon />;
+      case "abends":
+        return <BedtimeIcon />;
+      default:
+        return <DoNotDisturbAltIcon />;
+    }
+  };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -40,13 +55,14 @@ const HorseProfile: React.FC<{ horse: Horse | null; onClose: () => void }> = ({
     },
   }));
 
+  console.log(horse.feedSchedule.feedings)
+
   return (
     <ProfileDialog
       open={!!horse}
       onClose={onClose}
       title={`${horse.name}'s Profil`}
     >
-      <>
         <img
           src={"sample-horse-avatar.webp"}
           alt={`${horse.name}'s avatar`}
@@ -69,8 +85,9 @@ const HorseProfile: React.FC<{ horse: Horse | null; onClose: () => void }> = ({
               <TableBody>
                 {horse.feedSchedule.feedings.map((feeding) => (
                   <StyledTableRow key={feeding.id}>
-                    <StyledTableCell align="left" component="th" scope="row">
-                      <strong>{feeding.timeExpression}</strong>
+                    <StyledTableCell align="left">
+                      <strong>{feeding.timeExpression}</strong> <br />
+                      {renderFeedTimeIcon(feeding.timeExpression)}
                     </StyledTableCell>
                     <StyledTableCell align="left">
                       {feeding.feedType.name}
@@ -82,8 +99,7 @@ const HorseProfile: React.FC<{ horse: Horse | null; onClose: () => void }> = ({
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>
-      </>
+          </TableContainer>   
     </ProfileDialog>
   );
 };

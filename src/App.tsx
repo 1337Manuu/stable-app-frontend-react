@@ -9,6 +9,7 @@ import StallPaper from "./components/papers/StallPaper";
 import StallLocationPaper from "./components/papers/StallLocationPaper";
 import { AppContextProvider } from "./context/AppContextProvider";
 import {theme} from "./styles/Theme"
+import HauptstallLocation from "./components/Hauptstall";
 
 const App: React.FC = () => {
   return (
